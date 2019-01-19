@@ -1,0 +1,16 @@
+{
+  "name": "button_challenge",
+  "version": "1.0.0",
+  "description": "Button Challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Node",
+    "REST",
+    "API"
+  ],
+  "author": "Marteen Ben",
+  "license": "ISC"
+}
