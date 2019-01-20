@@ -8,6 +8,7 @@ router.get('/', (req,res) => {
     });
 });
 
+//get transfer id
 router.get('/:transferId', (req,res) => {
     const transferId = req.params.transferId;
 
