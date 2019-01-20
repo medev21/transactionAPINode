@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 //connect to MongoDB
 mongoose.connect(`mongodb://${DBUSER}:${DBPASSWORD}@ds161794.mlab.com:61794/button`, {useNewUrlParser: true});
-let conn = mongoose.connection;
+const conn = mongoose.connection;
 conn.on('error', console.error.bind(console, 'connection:'));
 conn.once('open', () => {
     console.log('connected to database');

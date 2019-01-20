@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../../models/userSchema');
 
 //get users
 router.get('/', (req,res,next) => {
@@ -10,15 +11,17 @@ router.get('/', (req,res,next) => {
 
 //create user
 router.post('/', (req,res,next) => {
-    const user = {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        points: 0
-    }
-    res.status(201).json({
-        message: 'creating an user....',
-        user: user
+    const user = new User();
+    user.firstName = req.body.firstName;
+    user.lastName = req.body.lastName;
+    user.email = req.body.email;
+
+    user.save().then((data) => {
+        console.log(data);
+        res.sendStatus(201);
+    })
+    .catch(err => {
+        res.status(400).send("unable to save to DB")
     });
 });
 
