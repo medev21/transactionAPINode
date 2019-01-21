@@ -3,9 +3,9 @@ const Schema = mongoose.Schema; //initialize schema
 
 //set type for each param
 const userSchema = new Schema({
-    firstName: String,
-    lastName: String,
-    email: String,
+    firstName: {type: String, required: true},
+    lastName: {type: String, required: true},
+    email: {type: String, required: true},
     points: {type: Number, default: 0},
     updated: { type: Date, default: Date.now }
 });

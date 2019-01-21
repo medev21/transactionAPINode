@@ -14,7 +14,7 @@ exports.users_get_all = (req,res,next) => {
         }
     })
     .catch(err => {
-        console.log(err);
+        // console.log(err);
         res.status(500).json({error: err});
     });
 };
@@ -26,11 +26,11 @@ exports.users_create = (req,res) => {
     user.email = req.body.email;
 
     user.save().then((data) => {
-        console.log(data);
+        // console.log(data);
         res.status(201).json(data);
     })
     .catch(err => {
-        console.log(err);
+        // console.log(err);
         res.status(500).json({error: err})
     });
 };
@@ -42,14 +42,14 @@ exports.user_get = (req,res,next) => {
     .exec()
     .then(data => {
         if(data){
-            console.log('USER DATA', data);
+            // console.log('USER DATA', data);
             res.status(200).json(data);
         }else{
             res.status(404).json({message: "no valid entry found for provided user id"})
         }
     })
     .catch(err => {
-        console.log(err);
+        // console.log(err);
         res.status(500).json({error: err})
     });
 };
