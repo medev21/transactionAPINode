@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const Transfer = require('../models/transferSchema');
 const User = require('../models/userSchema');
 

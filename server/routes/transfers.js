@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Transfer = require('../../models/transferSchema');
 const TransferController = require('../../controllers/transfers');
 
 //get all transfers
