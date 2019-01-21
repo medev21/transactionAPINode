@@ -27,7 +27,7 @@ exports.transfer_get = (req,res,next) => {
     Transfer.find({user_id: transferId})
     .exec()
     .then(data => {
-        if(data){
+        if(data.length > 0){
             console.log("FROM TRANSFER COLLECTION", data);
             res.status(200).json(data);
         }else{
@@ -41,43 +41,44 @@ exports.transfer_get = (req,res,next) => {
 };
 
 exports.transfer_create = (req,res) => {
-
-    //find user id
     User.findById(req.params.userId)
     .then(user => {
+        //check if user exists
         if(!user){
-            return res.status(404).json({
-                message: "User not found"
-            })
+            return res.status(404).json({message: "User not found"});
+        }
+        //check if user has funds
+        const delta = user.points + req.body.amount;
+        console.log("delta",delta);
+        if(delta < 0){
+            return res.status(404).json({message: "Insufficient funds"});
         }
 
-        console.log(user);
-
         const transfer = new Transfer();
-        transfer.user_id = req.params.userId;
+        transfer.user_id = user._id;
         transfer.amount = req.body.amount;
         transfer.transfer_type = req.body.transfer_type;
 
-        return transfer.save();
+        //update user's points
+        try{
+            user.points = delta;
+            user.save(user);
+        }
+        catch(error){
+            console.log(error);
+            return res.status(500).json(error);
+        }
 
-    })
-    .then(result => {
-        res.status(201).json(result);
+        transfer.save()
+        .then(result => {
+            return res.status(201).json(result);
+        })
+        .catch(error => {
+            return res.status(500).json(error);
+        });
     })
     .catch(err => {
+        console.log(err);
         res.status(500).json({error: err})
     });
-    
-    // const transfer = new Transfer();
-    // transfer.user_id = req.body.user_id;
-    // transfer.amount = req.body.amount;
-    // transfer.transfer_type = req.body.transfer_type;
-
-    // transfer.save().then((data) => {
-    //     res.status(201).json(data);
-    // })
-    // .catch(err => {
-    //     console.log(err);
-    //     res.status(400).json({error: err});
-    // });
 };

@@ -59,15 +59,15 @@ router.get('/:userId', (req,res) => {
     });
 });
 
-//update user
-// router.patch('/:userId', (req,res) => {
-//     const userId = req.params.userId;
+// update user
+router.patch('/:userId', (req,res) => {
+    const userId = req.params.userId;
 
-//     res.status(200).json({
-//         message: "user fetched",
-//         userId: userId
-//     });
-// });
+    res.status(200).json({
+        message: "user fetched",
+        userId: userId
+    });
+});
 
 router.delete('/:userId',(req,res) => {
     const userId = req.params.userId;
