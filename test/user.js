@@ -20,7 +20,7 @@ describe('Users',() => {
     });
 
     describe('/GET users',() => {
-        it('it should GET all the users', (done) => {
+        it('it should GET all the users - empty list', (done) => {
             chai.request(server)
             .get('/api/users')
             .end((err,res) => {
@@ -119,6 +119,28 @@ describe('Users',() => {
                 res.body.should.have.property('error');
                 res.body.error.should.have.property('kind').eql('ObjectId');
                 done();
+            });
+        });
+    });
+
+    describe('/GET users',() => {
+        it('it should GET all the users', (done) => {
+            const user = new User({
+                firstName: 'eric',
+                lastName: 'foreman',
+                email: 'eric@that70show.com'
+            })
+
+            user.save((err,user) => {
+                chai.request(server)
+                .get('/api/users/')
+                .send(user)
+                .end((err,res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.an('Array');
+                    res.body.should.have.lengthOf(1);
+                    done();
+                });
             });
         });
     });

@@ -13,7 +13,7 @@ router.post('/', UserController.users_create);
 router.get('/:userId', UserController.user_get);
 
 //delete user
-router.delete('/:userId', UserController.user_delete);
+// router.delete('/:userId', UserController.user_delete);
 
 // update user
 // router.patch('/:userId', (req,res) => {

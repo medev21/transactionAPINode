@@ -4,7 +4,7 @@ exports.users_get_all = (req,res,next) => {
     User.find()
     .exec()
     .then(data => {
-        console.log("ALL USERS GET", data);
+        // console.log("ALL USERS GET", data);
         if(data.length > 0){
             res.status(200).json(data)
         }else{
@@ -54,16 +54,16 @@ exports.user_get = (req,res,next) => {
     });
 };
 
-exports.user_delete = (req,res) => {
-    const userId = req.params.userId;
+// exports.user_delete = (req,res) => {
+//     const userId = req.params.userId;
 
-    User.deleteOne({_id: userId})
-    .exec()
-    .then(result => {
-        res.status(200).json(result);
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json({error: err})
-    });
-};
+//     User.deleteOne({_id: userId})
+//     .exec()
+//     .then(result => {
+//         res.status(200).json(result);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//         res.status(500).json({error: err})
+//     });
+// };
