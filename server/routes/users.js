@@ -8,6 +8,13 @@ router.get('/', (req,res,next) => {
     .exec()
     .then(data => {
         console.log("ALL USERS GET", data);
+        if(data.length > 0){
+            res.status(200).json(data)
+        }else{
+            res.status(404).json({
+                message: 'No entries found'
+            });
+        }
         res.status(200).json(data);
     })
     .catch(err => {
@@ -44,21 +51,26 @@ router.get('/:userId', (req,res) => {
 });
 
 //update user
-router.patch('/:userId', (req,res) => {
-    const userId = req.params.userId;
+// router.patch('/:userId', (req,res) => {
+//     const userId = req.params.userId;
 
-    res.status(200).json({
-        message: "user fetched",
-        userId: userId
-    });
-});
+//     res.status(200).json({
+//         message: "user fetched",
+//         userId: userId
+//     });
+// });
 
 router.delete('/:userId',(req,res) => {
     const userId = req.params.userId;
 
-    res.status(200).json({
-        message: "user fetched",
-        userId: userId
+    User.remove({_id: userId})
+    .exec()
+    .then(result => {
+        res.status(200).json(result);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error: err})
     });
 });
 module.exports = router;
