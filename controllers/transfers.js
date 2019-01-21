@@ -3,6 +3,7 @@ const Transfer = require('../models/transferSchema');
 const User = require('../models/userSchema');
 
 exports.transfer_get_all = (req,res,next) => {
+    //find all transfers
     Transfer.find()
     .exec()
     .then(data => {
@@ -24,6 +25,7 @@ exports.transfer_get_all = (req,res,next) => {
 exports.transfer_get = (req,res,next) => {
     const transferId = req.params.transferId;
 
+    //find user's transfers
     Transfer.find({user_id: transferId})
     .exec()
     .then(data => {
@@ -54,6 +56,7 @@ exports.transfer_create = (req,res) => {
             return res.status(404).json({message: "Insufficient funds"});
         }
 
+        //initialize transfer parameters
         const transfer = new Transfer();
         transfer.user_id = user._id;
         transfer.amount = req.body.amount;
