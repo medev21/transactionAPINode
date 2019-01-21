@@ -120,4 +120,55 @@ describe('Transfers',() => {
             });
         });
     });
+
+    describe('/GET/:userId transfer',() => {
+        it('It should fail GET transfer -  not found w/ provided id', (done) => {
+            //user has 0 points
+            const user = new User({
+                firstName: 'Red',
+                lastName: 'Forman',
+                email: 'red@that70show.com'
+            })
+
+            user.save((err,user) => {
+                chai.request(server)
+                .get('/api/transfers/' + user._id)
+                .end((err,res) => {
+                    res.should.have.status(404);
+                    res.body.should.be.an('Object');
+                    res.body.should.have.property('message').eql('no valid entry found for provided id');
+                    done();
+                });
+            });
+        });
+
+        it('It should be POST a transfer', (done) => {
+            //user has 0 points
+            const user = new User({
+                firstName: 'Red',
+                lastName: 'Forman',
+                email: 'red@that70show.com'
+            })
+
+            user.save((err,user) => {
+
+                const transfer = new Transfer({
+                    amount: 50,
+                    transfer_type: 'add',
+                    user_id: user._id
+                });
+
+                transfer.save((err,transfer) => {
+                    chai.request(server)
+                    .get('/api/transfers/' + transfer.user_id)
+                    .end((err,res) => {
+                        res.should.have.status(200);
+                        res.body.should.be.an('Array');
+                        res.body.should.have.lengthOf(1);
+                        done();
+                    });
+                });
+            });
+        });
+    });
 });

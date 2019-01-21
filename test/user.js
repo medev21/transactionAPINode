@@ -79,7 +79,7 @@ describe('Users',() => {
         it('It should GET w/ user id',(done) => {
             const user = new User({
                 firstName: 'eric',
-                lastName: 'foreman',
+                lastName: 'forman',
                 email: 'eric@that70show.com'
             })
 

@@ -72,7 +72,7 @@ exports.transfer_get = (req,res,next) => {
     .exec()
     .then(data => {
         if(data.length > 0){
-            console.log("FROM TRANSFER COLLECTION", data);
+            // console.log("FROM TRANSFER COLLECTION", data);
             res.status(200).json(data);
         }else{
             res.status(404).json({message: "no valid entry found for provided id"})
