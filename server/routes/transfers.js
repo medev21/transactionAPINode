@@ -13,9 +13,15 @@ router.get('/', (req,res,next) => {
 router.get('/:transferId', (req,res,next) => {
     const transferId = req.params.transferId;
 
-    res.status(200).json({
-        message: 'transfer fetched',
-        transferId: transferId
+    Transfer.find({user_id: transferId})
+    .exec()
+    .then(doc => {
+        console.log("From database", doc);
+        res.status(200).json(doc);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error: error})
     });
 });
 

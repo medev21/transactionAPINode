@@ -21,7 +21,7 @@ router.post('/', (req,res,next) => {
 
     user.save().then((data) => {
         console.log(data);
-        res.sendStatus(201);
+        res.status(201).json(data);
     })
     .catch(err => {
         res.status(400).send("unable to save to DB")
