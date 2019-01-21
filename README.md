@@ -5,6 +5,30 @@ A basic Node REST-ful API for a basic transaction system. This API is able to cr
 
 Each `user` has a `transfer` whose parameters are the following: `user_id`, `amount`, `transfer_type`. A `transfer` is the transaction where the `user` is able to add or deduct the amount from the `user` account.
 
+##Requirements
+Please have these two installed in your system before running this project.
+
+[node](https://nodejs.org/en/)
+[npm](https://www.npmjs.com/get-npm)
+
+##Installation
+Create a folder and store the unzipped project into your folder.
+
+Go inside the project(root folder) and run the following command in your terminal:
+
+`npm i`
+
+##Testing
+To run the tests in your terminal, run the following command in the root folder.
+
+`npm test`
+
+To exit, press `ctrl + c`
+
+If you have [Postman](https://www.getpostman.com/), you can also test the requests through there. Just activate the server, by running the following command in your root folder:
+
+`npm start`
+
 ###Request Examples###
 
 **User - GET**
@@ -141,28 +165,3 @@ response:
         "__v": 0
     }
     ```
-
-
-##Requirements
-Please have these two installed in your system before running this project.
-
-[node](https://nodejs.org/en/)
-[npm](https://www.npmjs.com/get-npm)
-
-##Installation
-Create a folder and store the unzipped project into your folder.
-
-Go inside the project(root folder) and run the following command in your terminal:
-
-`npm i`
-
-##Testing
-To run the tests in your terminal, run the following command in the root folder.
-
-`npm test`
-
-To exit, press `ctrl + c`
-
-If you have [Postman](https://www.getpostman.com/), you can also test the requests through there. Just activate the server, by running the following command in your root folder:
-
-`npm start`
