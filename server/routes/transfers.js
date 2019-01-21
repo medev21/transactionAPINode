@@ -17,11 +17,15 @@ router.get('/:transferId', (req,res,next) => {
     .exec()
     .then(doc => {
         console.log("From database", doc);
-        res.status(200).json(doc);
+        if(doc){
+            res.status(200).json(doc);
+        }else{
+            res.status(404).json({message: "no valid entry found for provided id"})
+        }
     })
     .catch(err => {
         console.log(err);
-        res.status(500).json({error: error})
+        res.status(500).json({error: err});
     });
 });
 

@@ -4,11 +4,15 @@ const User = require('../../models/userSchema');
 
 //get users
 router.get('/', (req,res,next) => {
-    User.find({}, (err, users) => {
-        if(err){
-            res.send(err)
-        }
-        res.json(users);
+    User.find()
+    .exec()
+    .then(data => {
+        console.log("ALL USERS GET", data);
+        res.status(200).json(data);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error: err});
     });
 });
 
@@ -24,7 +28,8 @@ router.post('/', (req,res,next) => {
         res.status(201).json(data);
     })
     .catch(err => {
-        res.status(400).send("unable to save to DB")
+        console.log(err);
+        res.status(500).json({error: err})
     });
 });
 
