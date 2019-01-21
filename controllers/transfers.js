@@ -41,16 +41,43 @@ exports.transfer_get = (req,res,next) => {
 };
 
 exports.transfer_create = (req,res) => {
-    const transfer = new Transfer();
-    transfer.user_id = req.body.user_id;
-    transfer.amount = req.body.amount;
-    transfer.transfer_type = req.body.transfer_type;
 
-    transfer.save().then((data) => {
-        res.status(201).json(data);
+    //find user id
+    User.findById(req.params.userId)
+    .then(user => {
+        if(!user){
+            return res.status(404).json({
+                message: "User not found"
+            })
+        }
+
+        console.log(user);
+
+        const transfer = new Transfer();
+        transfer.user_id = req.params.userId;
+        transfer.amount = req.body.amount;
+        transfer.transfer_type = req.body.transfer_type;
+
+        return transfer.save();
+
+    })
+    .then(result => {
+        res.status(201).json(result);
     })
     .catch(err => {
-        console.log(err);
-        res.status(400).json({error: err});
+        res.status(500).json({error: err})
     });
+    
+    // const transfer = new Transfer();
+    // transfer.user_id = req.body.user_id;
+    // transfer.amount = req.body.amount;
+    // transfer.transfer_type = req.body.transfer_type;
+
+    // transfer.save().then((data) => {
+    //     res.status(201).json(data);
+    // })
+    // .catch(err => {
+    //     console.log(err);
+    //     res.status(400).json({error: err});
+    // });
 };
