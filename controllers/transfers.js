@@ -21,26 +21,6 @@ exports.transfer_get_all = (req,res,next) => {
     });
 };
 
-exports.transfer_get = (req,res,next) => {
-    const transferId = req.params.transferId;
-
-    //find user's transfers
-    Transfer.find({user_id: transferId})
-    .exec()
-    .then(data => {
-        if(data.length > 0){
-            console.log("FROM TRANSFER COLLECTION", data);
-            res.status(200).json(data);
-        }else{
-            res.status(404).json({message: "no valid entry found for provided id"})
-        }
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json({error: err});
-    });
-};
-
 exports.transfer_create = (req,res) => {
     User.findById(req.params.userId)
     .then(user => {
@@ -82,5 +62,25 @@ exports.transfer_create = (req,res) => {
     .catch(err => {
         console.log(err);
         res.status(500).json({error: err})
+    });
+};
+
+exports.transfer_get = (req,res,next) => {
+    const userId = req.params.userId;
+
+    //find user's transfers
+    Transfer.find({user_id: userId})
+    .exec()
+    .then(data => {
+        if(data.length > 0){
+            console.log("FROM TRANSFER COLLECTION", data);
+            res.status(200).json(data);
+        }else{
+            res.status(404).json({message: "no valid entry found for provided id"})
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error: err});
     });
 };
