@@ -4,8 +4,21 @@ const Transfer = require('../../models/transferSchema');
 
 //get transfers
 router.get('/', (req,res,next) => {
-    res.status(200).json({
-        message: 'all transfers are here'
+    Transfer.find()
+    .exec()
+    .then(data => {
+        console.log("ALL TRANSFERS", data);
+        if(data.length > 0){
+            res.status(200).json(data)
+        }else{
+            res.status(404).json({
+                message: 'No entries found'
+            });
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error: err});
     });
 });
 
@@ -15,10 +28,10 @@ router.get('/:transferId', (req,res,next) => {
 
     Transfer.find({user_id: transferId})
     .exec()
-    .then(doc => {
-        console.log("From database", doc);
-        if(doc){
-            res.status(200).json(doc);
+    .then(data => {
+        if(data){
+            console.log("From database", data);
+            res.status(200).json(data);
         }else{
             res.status(404).json({message: "no valid entry found for provided id"})
         }

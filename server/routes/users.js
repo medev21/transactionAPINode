@@ -15,7 +15,6 @@ router.get('/', (req,res,next) => {
                 message: 'No entries found'
             });
         }
-        res.status(200).json(data);
     })
     .catch(err => {
         console.log(err);
@@ -44,9 +43,19 @@ router.post('/', (req,res,next) => {
 router.get('/:userId', (req,res) => {
     const userId = req.params.userId;
 
-    res.status(200).json({
-        message: "user fetched",
-        userId: userId
+    User.findById(userId)
+    .exec()
+    .then(data => {
+        if(data){
+            console.log('USER DATA', data);
+            res.status(200).json(data);
+        }else{
+            res.status(404).json({message: "no valid entry found for provided user id"})
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error: err})
     });
 });
 
@@ -73,4 +82,5 @@ router.delete('/:userId',(req,res) => {
         res.status(500).json({error: err})
     });
 });
+
 module.exports = router;
