@@ -30,7 +30,6 @@ exports.transfer_create = (req,res) => {
         }
         //check if user has funds
         const delta = user.points + req.body.amount;
-        console.log("delta",delta);
         if(delta < 0){
             return res.status(404).json({message: "Insufficient funds"});
         }
