@@ -56,7 +56,7 @@ describe('Users',() => {
         it('it should POST an user',(done) => {
             const user = {
                 firstName: "martin",
-                lastName: 'ben',
+                lastName: "ben",
                 email: "test@test.com"
             }
 
